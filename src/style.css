@@ -3,6 +3,12 @@ hr {
   margin: 1px;
 }
 
+footer {
+  text-align: center;
+  font-family: monospace;
+  font-size: 14px;
+}
+
 /* .background {
   background: #272932;
 } */
@@ -12,7 +18,7 @@ hr {
 }
 
 .container {
-  margin: 15px auto;
+  margin: 10px auto;
   padding: 20px;
   max-width: 460px;
   background: #c8d9eb;
@@ -130,4 +136,8 @@ hr {
   width: 60px;
   /* display: block;
   margin: 0 auto; */
+}
+
+.external-link {
+  text-decoration: none;
 }
