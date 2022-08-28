@@ -1,0 +1,133 @@
+hr {
+  border: 1px solid #4f5aa8;
+  margin: 1px;
+}
+
+/* .background {
+  background: #272932;
+} */
+
+.highlighted-text {
+  color: #4f5aa8;
+}
+
+.container {
+  margin: 15px auto;
+  padding: 20px;
+  max-width: 460px;
+  background: #c8d9eb;
+  border-radius: 30px;
+  box-shadow: rgba(79, 90, 168, 0.5) 3px 3px 2.6px;
+}
+
+.actual-date {
+  font-size: 16px;
+  color: gray;
+  margin-bottom: 8px;
+}
+
+.enter-city {
+  padding: 5px;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  width: 105%;
+}
+
+.search-city-button {
+  background: #6bd5e1;
+  padding: 5px;
+  border: 1px solid #6bd5e1;
+  border-radius: 10px;
+}
+
+.fav-city-button {
+  background: #ffd98e;
+  padding: 5px;
+  border: 1px solid #ffd98e;
+  border-radius: 10px;
+}
+
+.actual-city {
+  text-align: center;
+  margin: 10px auto 0 auto;
+  font-family: "Secular One", sans-serif;
+  font-size: 36px;
+}
+
+.temperature-container {
+  text-align: center;
+}
+
+.actual-temperature {
+  text-align: center;
+  font-family: "Secular One", sans-serif;
+  font-size: 70px;
+  font-weight: 100;
+  color: #4f5aa8;
+}
+
+.actual-degrees,
+.fahrenheit-degrees {
+  position: relative;
+  top: -30px;
+  font-size: 16px;
+  color: gray;
+  text-decoration: none;
+}
+
+.actual-weather-img {
+  display: block;
+  margin: 0 auto;
+  width: 35%;
+}
+
+.actual-weather-data {
+  font-size: 18px;
+  list-style-type: none;
+  font-family: "Secular One", sans-serif;
+}
+
+.fav-cities-title {
+  font-family: "Secular One", sans-serif;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 3 00;
+}
+
+.favorite-cities-list {
+  font-family: "Secular One", sans-serif;
+  list-style-type: none;
+  font-size: 18px;
+}
+
+/* Weekly predictions  */
+
+.weekly-forecast-box {
+  background: #fff;
+  border-radius: 20px;
+  max-width: 200px;
+}
+
+.weekly-forecast {
+  font-family: "Secular One", sans-serif;
+  list-style-type: none;
+}
+
+.prediction-text {
+  margin: 1px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.prediction-date {
+  text-align: center;
+  font-size: 14px;
+  color: gray;
+}
+
+.prediction-img {
+  width: 60px;
+  /* display: block;
+  margin: 0 auto; */
+}
