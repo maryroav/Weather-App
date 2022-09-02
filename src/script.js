@@ -51,18 +51,6 @@ let currentDate = `${hours}:${minutes}, ${day}, ${month} ${date}, ${year}`;
 
 document.getElementById("actual-date").innerHTML = currentDate;
 
-// Current city display
-
-// function currentCityDisplay(event) {
-//   event.preventDefault();
-//   let cityInput = document.querySelector("#city-input");
-//   let showCurrentCity = document.querySelector("#current-city-display");
-//   showCurrentCity.innerHTML = cityInput.value;
-// }
-
-// let currentCity = document.querySelector("#current-city");
-// currentCity.addEventListener("submit", currentCityDisplay);
-
 // Celsius and fahrenheit temperature
 
 // function showInFahrenheit() {
@@ -81,33 +69,6 @@ document.getElementById("actual-date").innerHTML = currentDate;
 
 // let celsiusTemperature = document.querySelector("#c-degrees");
 // celsiusTemperature.addEventListener("click", showInCelsius);
-
-// Submit city button
-
-// function submitCity(event) {
-//   event.preventDefault();
-//   let cityInput = document.querySelector("#city-input");
-//   let showCurrentCity = document.querySelector("#current-city-display");
-//   showCurrentCity.innerHTML = `${cityInput.value}`;
-// }
-
-// let submitCityButton = document.querySelector("#submit-city-button");
-// submitCityButton.addEventListener("click", submitCity);
-
-// Weather API
-
-// Show city
-
-// function currentCityDisplay(event) {
-//   event.preventDefault();
-//   let cityInput = document.querySelector("#city-input");
-//   let showCurrentCity = document.querySelector("#current-city-display");
-//   showCurrentCity.innerHTML = cityInput.value;
-//   console.log(cityInput.value);
-// }
-
-// let currentCity = document.querySelector("#current-city");
-// currentCity.addEventListener("submit", currentCityDisplay);
 
 // Show weather data
 
@@ -155,72 +116,3 @@ let currentCity = document.querySelector("#current-city");
 currentCity.addEventListener("submit", currentCityDisplay);
 
 search("Caracas");
-
-//
-//
-//
-//
-//
-//
-// let weather = {
-//   paris: {
-//     temp: 19.7,
-//     humidity: 80,
-//   },
-
-//   tokyo: {
-//     temp: 17.3,
-//     humidity: 50,
-//   },
-
-//   lisbon: {
-//     temp: 30.2,
-//     humidity: 20,
-//   },
-
-//   "san francisco": {
-//     temp: 20.9,
-//     humidity: 100,
-//   },
-
-//   oslo: {
-//     temp: -5,
-//     humidity: 20,
-//   },
-// };
-
-// write your code here
-
-// let city = prompt("Enter a city");
-// let humidity = weather[city].humidity;
-// let celsiusTemperature = Math.round(weather[city].temp);
-// let fahrenheitTemperature = Math.round((weather[city].temp * 9) / 5 + 32);
-
-// city = city.toLowerCase();
-
-// if (weather[city] !== undefined) {
-//   alert(
-//     `It's currently ${celsiusTemperature}°C (${fahrenheitTemperature}°F) in ${city} with a humidity of ${humidity}%`
-//   );
-// } else {
-//   alert(
-//     `Sorry, we don't know the weather for this city, try going to https://www.google.com/search?q=weather+${city}`
-//   );
-// }
-
-// let city = prompt("Enter a city");
-// city = city.toLowerCase();
-
-// if (weather[city] !== undefined) {
-//   let humidity = weather[city].humidity;
-//   let celsiusTemperature = Math.round(weather[city].temp);
-//   let fahrenheitTemperature = Math.round((weather[city].temp * 9) / 5 + 32);
-
-//   alert(
-//     `It's currently ${celsiusTemperature}°C (${fahrenheitTemperature}°F) in ${city} with a humidity of ${humidity}%`
-//   );
-// } else {
-//   alert(
-//     `Sorry, we don't know the weather for this city, try going to https://www.google.com/search?q=weather+${city}`
-//   );
-// }
