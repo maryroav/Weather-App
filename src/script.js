@@ -53,22 +53,30 @@ document.getElementById("actual-date").innerHTML = currentDate;
 
 // Celsius and fahrenheit temperature
 
-// function showInFahrenheit() {
-//   let fahrenheitDegrees = document.querySelector("#current-temperature");
-//   // document.getElementById("current-temperature").innerHTML = fahrenheitDegrees;
-//   fahrenheitDegrees.innerHTML = "57";
-// }
+function showInFahrenheit(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#current-temperature");
+  // Remove the active class for the celsius degrees
+  celsiusDegrees.classList.remove("active");
+  // Then, add the active class to the fahrenheit degrees
+  fahrenheitDegrees.classList.add("active");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+}
 
-// function showInCelsius() {
-//   let celsiusDegrees = document.querySelector("#current-temperature");
-//   celsiusDegrees.innerHTML = "14";
-// }
+function showInCelsius(event) {
+  event.preventDefault();
+  fahrenheitDegrees.classList.remove("active");
+  celsiusDegrees.classList.add("active");
+  let temperatureElement = document.querySelector("#current-temperature");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+}
 
-// let fahrenheitTemperature = document.querySelector("#f-degrees");
-// fahrenheitTemperature.addEventListener("click", showInFahrenheit);
+let fahrenheitDegrees = document.querySelector("#f-degrees");
+fahrenheitDegrees.addEventListener("click", showInFahrenheit);
 
-// let celsiusTemperature = document.querySelector("#c-degrees");
-// celsiusTemperature.addEventListener("click", showInCelsius);
+let celsiusDegrees = document.querySelector("#c-degrees");
+celsiusDegrees.addEventListener("click", showInCelsius);
 
 // Show weather data
 
@@ -79,8 +87,9 @@ function showWeatherData(response) {
   let countryName = document.querySelector("#current-country-display");
   countryName.innerHTML = response.data.sys.country;
 
-  let currentTemperature = document.querySelector("#current-temperature");
-  currentTemperature.innerHTML = Math.round(response.data.main.temp);
+  let temperatureElement = document.querySelector("#current-temperature");
+  celsiusTemperature = response.data.main.temp;
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
 
   let currentDescription = document.querySelector("#current-description");
   currentDescription.innerHTML = response.data.weather[0].main;
@@ -114,5 +123,7 @@ function currentCityDisplay(event) {
 
 let currentCity = document.querySelector("#current-city");
 currentCity.addEventListener("submit", currentCityDisplay);
+
+let celsiusTemperature = null;
 
 search("Caracas");

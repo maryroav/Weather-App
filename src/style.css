@@ -39,6 +39,12 @@ footer {
   width: 105%;
 }
 
+.enter-city:focus {
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: rgba(79, 90, 168, 0.5);
+}
+
 .search-city-button {
   background: #6bd5e1;
   padding: 5px;
@@ -72,14 +78,30 @@ footer {
   color: #4f5aa8;
 }
 
-.actual-degrees,
-.fahrenheit-degrees {
-  position: relative;
-  top: -30px;
-  font-size: 16px;
+.degrees a {
   color: gray;
   text-decoration: none;
 }
+
+.degrees span {
+  font-size: 18px;
+  font-weight: 500;
+  position: relative;
+  top: -30px;
+}
+
+.degrees a:hover {
+  color: #fff;
+}
+
+.degrees .active {
+  color: #4f5aa8;
+  cursor: default;
+}
+
+/* .temperature-container .active {
+  color: blue;
+} */
 
 .actual-weather-img {
   display: block;
