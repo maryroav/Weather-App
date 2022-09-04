@@ -115,6 +115,10 @@ footer {
   font-family: "Secular One", sans-serif;
 }
 
+.highlighted-text:first-letter {
+  text-transform: capitalize;
+}
+
 .fav-cities-title {
   font-family: "Secular One", sans-serif;
   text-align: center;

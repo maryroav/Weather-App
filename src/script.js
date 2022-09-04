@@ -81,18 +81,80 @@ celsiusDegrees.addEventListener("click", showInCelsius);
 // Show weather data
 
 function showWeatherData(response) {
+  console.log(response.data);
   let cityName = document.querySelector("#current-city-display");
   cityName.innerHTML = `${response.data.name}, `;
 
   let countryName = document.querySelector("#current-country-display");
   countryName.innerHTML = response.data.sys.country;
 
+  // Weather icons
+
+  let actualWeather = response.data.weather[0].icon;
+
+  if (actualWeather === "01d") {
+    document.getElementById("actual-weather").src =
+      "images/weather-icons-master/design/fill/animation-ready/clear-day.svg";
+  }
+
+  if (actualWeather === "01n") {
+    document.getElementById("actual-weather").src =
+      "images/weather-icons-master/design/fill/animation-ready/clear-night.svg";
+  }
+
+  if (actualWeather === "02d") {
+    document.getElementById("actual-weather").src =
+      "images/weather-icons-master/design/fill/animation-ready/partly-cloudy-day.svg";
+  }
+
+  if (actualWeather === "02n") {
+    document.getElementById("actual-weather").src =
+      "images/weather-icons-master/design/fill/animation-ready/partly-cloudy-night.svg";
+  }
+
+  if (actualWeather === "03d" && "03n") {
+    document.getElementById("actual-weather").src =
+      "images/weather-icons-master/design/fill/animation-ready/cloudy.svg";
+  }
+
+  if (actualWeather === "04d" && "04n") {
+    document.getElementById("actual-weather").src =
+      "images/weather-icons-master/design/fill/animation-ready/overcast.svg";
+  }
+
+  if (actualWeather === "09d" && "09n") {
+    document.getElementById("actual-weather").src =
+      "images/weather-icons-master/design/fill/animation-ready/drizzle.svg";
+  }
+
+  if (actualWeather === "10d" && "10n") {
+    document.getElementById("actual-weather").src =
+      "images/weather-icons-master/design/fill/animation-ready/rain.svg";
+  }
+
+  if (actualWeather === "11d" && "11n") {
+    document.getElementById("actual-weather").src =
+      "images/weather-icons-master/design/fill/animation-ready/thunderstorms.svg";
+  }
+
+  if (actualWeather === "13d" && "13n") {
+    document.getElementById("actual-weather").src =
+      "images/weather-icons-master/design/fill/animation-ready/snow.svg";
+  }
+
+  if (actualWeather === "50d" && "50n") {
+    document.getElementById("actual-weather").src =
+      "images/weather-icons-master/design/fill/animation-ready/mist.svg";
+  }
+
+  console.log(actualWeather);
+
   let temperatureElement = document.querySelector("#current-temperature");
   celsiusTemperature = response.data.main.temp;
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 
   let currentDescription = document.querySelector("#current-description");
-  currentDescription.innerHTML = response.data.weather[0].main;
+  currentDescription.innerHTML = response.data.weather[0].description;
 
   let currentHumidity = document.querySelector("#current-humidity");
   currentHumidity.innerHTML = `${response.data.main.humidity}%`;
