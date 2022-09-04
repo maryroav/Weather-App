@@ -162,11 +162,43 @@ function showWeatherData(response) {
   let currentWind = document.querySelector("#current-wind");
   currentWind.innerHTML = `${response.data.wind.speed} m/s`;
 
-  // let sunriseTime = document.querySelector("#sunrise");
-  // sunriseTime.innerHTML =
-  // let sunsetTime = document.querySelector("#sunset");
+  // Sunrise time
 
-  console.log(response);
+  let sunriseUnix = response.data.sys.sunrise;
+  sunriseTime = new Date(sunriseUnix * 1000);
+
+  sunriseHour = sunriseTime.getHours();
+  if (sunriseHour < 10) {
+    sunriseHour = `0${sunriseHour}`;
+  }
+
+  sunriseMinutes = sunriseTime.getMinutes();
+  if (sunriseMinutes < 10) {
+    sunriseMinutes = `0${sunriseMinutes}`;
+  }
+
+  let sunrise = `${sunriseHour}:${sunriseMinutes}`;
+
+  document.getElementById("sunrise").innerHTML = `${sunrise}`;
+
+  // Sunset time
+
+  let sunsetUnix = response.data.sys.sunset;
+  sunsetTime = new Date(sunsetUnix * 1000);
+
+  sunsetHour = sunsetTime.getHours();
+  if (sunsetHour < 10) {
+    sunsetHour = `0${sunsetHour}`;
+  }
+
+  sunsetMinutes = sunsetTime.getMinutes();
+  if (sunsetMinutes < 10) {
+    sunsetMinutes = `0${sunsetMinutes}`;
+  }
+
+  let sunset = `${sunsetHour}:${sunsetMinutes}`;
+
+  document.getElementById("sunset").innerHTML = `${sunset}`;
 }
 
 function search(city) {
