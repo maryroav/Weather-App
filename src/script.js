@@ -112,37 +112,37 @@ function showWeatherData(response) {
       "images/weather-icons-master/design/fill/animation-ready/partly-cloudy-night.svg";
   }
 
-  if (actualWeather === "03d" && "03n") {
+  if (actualWeather === "03d" || "03n") {
     document.getElementById("actual-weather").src =
       "images/weather-icons-master/design/fill/animation-ready/cloudy.svg";
   }
 
-  if (actualWeather === "04d" && "04n") {
+  if (actualWeather === "04d" || "04n") {
     document.getElementById("actual-weather").src =
       "images/weather-icons-master/design/fill/animation-ready/overcast.svg";
   }
 
-  if (actualWeather === "09d" && "09n") {
+  if (actualWeather === "09d" || "09n") {
     document.getElementById("actual-weather").src =
       "images/weather-icons-master/design/fill/animation-ready/drizzle.svg";
   }
 
-  if (actualWeather === "10d" && "10n") {
+  if (actualWeather === "10d" || "10n") {
     document.getElementById("actual-weather").src =
       "images/weather-icons-master/design/fill/animation-ready/rain.svg";
   }
 
-  if (actualWeather === "11d" && "11n") {
+  if (actualWeather === "11d" || "11n") {
     document.getElementById("actual-weather").src =
       "images/weather-icons-master/design/fill/animation-ready/thunderstorms.svg";
   }
 
-  if (actualWeather === "13d" && "13n") {
+  if (actualWeather === "13d" || "13n") {
     document.getElementById("actual-weather").src =
       "images/weather-icons-master/design/fill/animation-ready/snow.svg";
   }
 
-  if (actualWeather === "50d" && "50n") {
+  if (actualWeather === "50d" || "50n") {
     document.getElementById("actual-weather").src =
       "images/weather-icons-master/design/fill/animation-ready/mist.svg";
   }
