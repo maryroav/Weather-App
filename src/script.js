@@ -51,6 +51,54 @@ let currentDate = `${hours}:${minutes}, ${day}, ${month} ${date}, ${year}`;
 
 document.getElementById("actual-date").innerHTML = currentDate;
 
+// Forecast
+
+function forecastFormatDate(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  let day = days[date.getDay()];
+  return day;
+}
+
+function displayForecast(response) {
+  console.log(response.data);
+  let forecast = response.data.daily;
+
+  let forecastElement = document.querySelector("#weather-forecast");
+
+  let forecastHTML = `<div class="row">`;
+
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      console.log(forecastDay);
+      forecastHTML =
+        forecastHTML +
+        `<div class="col-6">
+        <div class="prediction-day">${forecastFormatDate(forecastDay.dt)}</div> 
+          <div class="weather-prediction">
+            <span class="max-temp">${Math.round(forecastDay.temp.max)}°</span>
+            <span class="min-temp">${Math.round(forecastDay.temp.min)}°</span>
+          </div>
+      </div>
+      
+      <div class="col-6">
+      <img src="${weatherIcon(
+        forecastDay.weather[0].icon
+      )}" class="prediction-img" id="daily-forecast-icon"></div>`;
+    }
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function getForecast(coordinates) {
+  let units = "metric";
+  let apiKey = "a43564c91a6c605aeb564c9ed02e3858";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecast);
+}
+
 // Celsius and fahrenheit temperature
 
 function showInFahrenheit(event) {
@@ -78,7 +126,7 @@ fahrenheitDegrees.addEventListener("click", showInFahrenheit);
 let celsiusDegrees = document.querySelector("#c-degrees");
 celsiusDegrees.addEventListener("click", showInCelsius);
 
-// Show weather data
+// Show current weather data
 
 function showWeatherData(response) {
   console.log(response.data);
@@ -88,66 +136,9 @@ function showWeatherData(response) {
   let countryName = document.querySelector("#current-country-display");
   countryName.innerHTML = response.data.sys.country;
 
-  // Weather icons
-
-  let actualWeather = response.data.weather[0].icon;
-
-  if (actualWeather === "01d") {
-    document.getElementById("actual-weather").src =
-      "images/weather-icons-master/design/fill/animation-ready/clear-day.svg";
-  }
-
-  if (actualWeather === "01n") {
-    document.getElementById("actual-weather").src =
-      "images/weather-icons-master/design/fill/animation-ready/clear-night.svg";
-  }
-
-  if (actualWeather === "02d") {
-    document.getElementById("actual-weather").src =
-      "images/weather-icons-master/design/fill/animation-ready/partly-cloudy-day.svg";
-  }
-
-  if (actualWeather === "02n") {
-    document.getElementById("actual-weather").src =
-      "images/weather-icons-master/design/fill/animation-ready/partly-cloudy-night.svg";
-  }
-
-  if (actualWeather === "03d" || actualWeather === "03n") {
-    document.getElementById("actual-weather").src =
-      "images/weather-icons-master/design/fill/animation-ready/cloudy.svg";
-  }
-
-  if (actualWeather === "04d" || actualWeather === "04n") {
-    document.getElementById("actual-weather").src =
-      "images/weather-icons-master/design/fill/animation-ready/overcast.svg";
-  }
-
-  if (actualWeather === "09d" || actualWeather === "09n") {
-    document.getElementById("actual-weather").src =
-      "images/weather-icons-master/design/fill/animation-ready/drizzle.svg";
-  }
-
-  if (actualWeather === "10d" || actualWeather === "10n") {
-    document.getElementById("actual-weather").src =
-      "images/weather-icons-master/design/fill/animation-ready/rain.svg";
-  }
-
-  if (actualWeather === "11d" || actualWeather === "11n") {
-    document.getElementById("actual-weather").src =
-      "images/weather-icons-master/design/fill/animation-ready/thunderstorms.svg";
-  }
-
-  if (actualWeather === "13d" || actualWeather === "13n") {
-    document.getElementById("actual-weather").src =
-      "images/weather-icons-master/design/fill/animation-ready/snow.svg";
-  }
-
-  if (actualWeather === "50d" || actualWeather === "50n") {
-    document.getElementById("actual-weather").src =
-      "images/weather-icons-master/design/fill/animation-ready/mist.svg";
-  }
-
-  console.log(actualWeather);
+  document.getElementById("actual-weather").src = weatherIcon(
+    response.data.weather[0].icon
+  ); // Weather icon
 
   let temperatureElement = document.querySelector("#current-temperature");
   celsiusTemperature = response.data.main.temp;
@@ -199,6 +190,54 @@ function showWeatherData(response) {
   let sunset = `${sunsetHour}:${sunsetMinutes}`;
 
   document.getElementById("sunset").innerHTML = `${sunset}`;
+
+  getForecast(response.data.coord);
+}
+
+function weatherIcon(iconChoice) {
+  if (iconChoice === "01d") {
+    return "images/weather-icons-master/design/fill/animation-ready/clear-day.svg";
+  }
+
+  if (iconChoice === "01n") {
+    return "images/weather-icons-master/design/fill/animation-ready/clear-night.svg";
+  }
+
+  if (iconChoice === "02d") {
+    return "images/weather-icons-master/design/fill/animation-ready/partly-cloudy-day.svg";
+  }
+
+  if (iconChoice === "02n") {
+    return "images/weather-icons-master/design/fill/animation-ready/partly-cloudy-night.svg";
+  }
+
+  if (iconChoice === "03d" || iconChoice === "03n") {
+    return "images/weather-icons-master/design/fill/animation-ready/cloudy.svg";
+  }
+
+  if (iconChoice === "04d" || iconChoice === "04n") {
+    return "images/weather-icons-master/design/fill/animation-ready/overcast.svg";
+  }
+
+  if (iconChoice === "09d" || iconChoice === "09n") {
+    return "images/weather-icons-master/design/fill/animation-ready/drizzle.svg";
+  }
+
+  if (iconChoice === "10d" || iconChoice === "10n") {
+    return "images/weather-icons-master/design/fill/animation-ready/rain.svg";
+  }
+
+  if (iconChoice === "11d" || iconChoice === "11n") {
+    return "images/weather-icons-master/design/fill/animation-ready/thunderstorms.svg";
+  }
+
+  if (iconChoice === "13d" || iconChoice === "13n") {
+    return "images/weather-icons-master/design/fill/animation-ready/snow.svg";
+  }
+
+  if (iconChoice === "50d" || iconChoice === "50n") {
+    return "images/weather-icons-master/design/fill/animation-ready/mist.svg";
+  }
 }
 
 function search(city) {
@@ -220,4 +259,4 @@ currentCity.addEventListener("submit", currentCityDisplay);
 
 let celsiusTemperature = null;
 
-search("Caracas");
+search("Marsella");
