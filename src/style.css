@@ -145,17 +145,21 @@ footer {
   list-style-type: none;
 }
 
-.prediction-text {
+.prediction-day {
   margin: 1px;
   text-align: center;
   font-size: 26px;
   font-weight: bold;
 }
 
-.prediction-date {
+.weather-prediction {
   text-align: center;
   font-size: 14px;
-  color: gray;
+  color: rgb(165, 165, 165);
+}
+
+.max-temp {
+  font-weight: bold;
 }
 
 .prediction-img {
