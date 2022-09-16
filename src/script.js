@@ -1,55 +1,25 @@
-// Current date display
+// Last update display
 
-let today = new Date();
+function lastUpdate() {
+  // let actualDate = document.getElementById("actual-date");
+  /* let year = today.getFullYear();
+  let month = today.getMonth();
+  let day = today.getDate();
 
-let seconds = today.getSeconds();
+  console.log(getMoonPhase(year, month, day)); */
 
-let minutes = today.getMinutes();
-if (minutes < 10) {
-  minutes = `0${minutes}`;
+  let lastTimeUpdated = document.getElementById("actual-date");
+  convertTime = cityDate.toLocaleString("en-us", {
+    year: "numeric",
+    month: "long",
+    weekday: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  lastTimeUpdated.innerHTML = `Last update: ${convertTime}`;
 }
-
-let hours = today.getHours();
-if (hours < 10) {
-  hours = `0${hours}`;
-}
-
-let date = today.getDate();
-
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
-let day = days[today.getDay()];
-
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-let month = months[today.getMonth()];
-
-let year = today.getFullYear();
-
-let currentDate = `${hours}:${minutes}, ${day}, ${month} ${date}, ${year}`;
-
-document.getElementById("actual-date").innerHTML = currentDate;
 
 // Forecast
 
@@ -129,7 +99,6 @@ celsiusDegrees.addEventListener("click", showInCelsius);
 // Show current weather data
 
 function showWeatherData(response) {
-  console.log(response.data);
   let cityName = document.querySelector("#current-city-display");
   cityName.innerHTML = `${response.data.name}, `;
 
@@ -153,45 +122,41 @@ function showWeatherData(response) {
   let currentWind = document.querySelector("#current-wind");
   currentWind.innerHTML = `${response.data.wind.speed} m/s`;
 
+  // Timezone offset
+
+  let cityOffset = response.data.timezone / 3600;
+  let userOffset = today.getTimezoneOffset() / 60;
+  let diffHours = cityOffset + userOffset;
+  cityDate.setTime(today.getTime() + diffHours * 60 * 60 * 1000);
+
   // Sunrise time
 
   let sunriseUnix = response.data.sys.sunrise;
-  sunriseTime = new Date(sunriseUnix * 1000);
+  sunriseTime = new Date(sunriseUnix * 1000 + diffHours * 60 * 60 * 1000);
 
-  sunriseHour = sunriseTime.getHours();
-  if (sunriseHour < 10) {
-    sunriseHour = `0${sunriseHour}`;
-  }
-
-  sunriseMinutes = sunriseTime.getMinutes();
-  if (sunriseMinutes < 10) {
-    sunriseMinutes = `0${sunriseMinutes}`;
-  }
-
-  let sunrise = `${sunriseHour}:${sunriseMinutes}`;
+  sunrise = sunriseTime.toLocaleString("en-us", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   document.getElementById("sunrise").innerHTML = `${sunrise}`;
+  console.log(response.data.sys);
 
   // Sunset time
 
   let sunsetUnix = response.data.sys.sunset;
-  sunsetTime = new Date(sunsetUnix * 1000);
+  sunsetTime = new Date(sunsetUnix * 1000 + diffHours * 60 * 60 * 1000);
 
-  sunsetHour = sunsetTime.getHours();
-  if (sunsetHour < 10) {
-    sunsetHour = `0${sunsetHour}`;
-  }
-
-  sunsetMinutes = sunsetTime.getMinutes();
-  if (sunsetMinutes < 10) {
-    sunsetMinutes = `0${sunsetMinutes}`;
-  }
-
-  let sunset = `${sunsetHour}:${sunsetMinutes}`;
+  sunset = sunsetTime.toLocaleString("en-us", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   document.getElementById("sunset").innerHTML = `${sunset}`;
 
   getForecast(response.data.coord);
+
+  lastUpdate();
 }
 
 function weatherIcon(iconChoice) {
@@ -240,6 +205,46 @@ function weatherIcon(iconChoice) {
   }
 }
 
+function getMoonPhase(year, month, day) {
+  var c = (e = jd = b = 0);
+
+  if (month < 3) {
+    year--;
+    month += 12;
+  }
+
+  ++month;
+
+  c = 365.25 * year;
+
+  e = 30.6 * month;
+
+  jd = c + e + day - 694039.09; //jd is total days elapsed
+
+  jd /= 29.5305882; //divide by the moon cycle
+
+  b = parseInt(jd); //int(jd) -> b, take integer part of jd
+
+  jd -= b; //subtract integer part to leave fractional part of original jd
+
+  b = Math.round(jd * 8); //scale fraction from 0-8 and round
+
+  if (b >= 8) {
+    b = 0; //0 and 8 are the same so turn 8 into 0
+  }
+
+  // 0 => New Moon
+  // 1 => Waxing Crescent Moon
+  // 2 => Quarter Moon
+  // 3 => Waxing Gibbous Moon
+  // 4 => Full Moon
+  // 5 => Waning Gibbous Moon
+  // 6 => Last Quarter Moon
+  // 7 => Waning Crescent Moon
+
+  return b;
+}
+
 function search(city) {
   let units = "metric";
   let apiKey = "ba00850463194774eab1016f22d45ed5";
@@ -252,7 +257,11 @@ function currentCityDisplay(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value;
   search(city);
+  showInCelsius(event);
 }
+
+var today = new Date(); // Current date, global variable
+var cityDate = new Date(); // City date, global variable
 
 let currentCity = document.querySelector("#current-city");
 currentCity.addEventListener("submit", currentCityDisplay);
@@ -260,3 +269,11 @@ currentCity.addEventListener("submit", currentCityDisplay);
 let celsiusTemperature = null;
 
 search("Marsella");
+
+/* Astronomy API
+
+Application ID: 272edff2-849b-4006-ac50-d8cff575e5a6
+
+Application secret: a71e7b878d760c64be354008d520e0c1b2989ec65add483830e8acaba03dd51a95f903095783e4cb60d9174305fa6c83442746a8d9aec4c7282a04cd8d24aa727c7c6ba091f2436e85c1adeac881df11754cc4c7f7bd9c8a42dcccc8a1b9798eb516139fdcafdd93b80e3925d574cc12
+
+*/

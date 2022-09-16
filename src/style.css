@@ -119,14 +119,14 @@ footer {
   text-transform: capitalize;
 }
 
-.fav-cities-title {
+.moon-phase-title {
   font-family: "Secular One", sans-serif;
   text-align: center;
   font-size: 20px;
   font-weight: 3 00;
 }
 
-.favorite-cities-list {
+.moon-phase-list {
   font-family: "Secular One", sans-serif;
   list-style-type: none;
   font-size: 18px;
