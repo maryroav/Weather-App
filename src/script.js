@@ -1,14 +1,8 @@
 // Last update display
 
 function lastUpdate() {
-  // let actualDate = document.getElementById("actual-date");
-  /* let year = today.getFullYear();
-  let month = today.getMonth();
-  let day = today.getDate();
-
-  console.log(getMoonPhase(year, month, day)); */
-
   let lastTimeUpdated = document.getElementById("actual-date");
+
   convertTime = cityDate.toLocaleString("en-us", {
     year: "numeric",
     month: "long",
@@ -31,7 +25,6 @@ function forecastFormatDate(timestamp) {
 }
 
 function displayForecast(response) {
-  console.log(response.data);
   let forecast = response.data.daily;
 
   let forecastElement = document.querySelector("#weather-forecast");
@@ -65,36 +58,59 @@ function getForecast(coordinates) {
   let units = "metric";
   let apiKey = "a43564c91a6c605aeb564c9ed02e3858";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
-  console.log(apiUrl);
   axios.get(apiUrl).then(displayForecast);
 }
 
-// Celsius and fahrenheit temperature
-
-function showInFahrenheit(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#current-temperature");
-  // Remove the active class for the celsius degrees
-  celsiusDegrees.classList.remove("active");
-  // Then, add the active class to the fahrenheit degrees
-  fahrenheitDegrees.classList.add("active");
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+function showMoonPhase(response) {
+  document.getElementById("moon-phase").src = moonPhaseIcon(
+    response.data.days[0].moonphase
+  );
 }
 
-function showInCelsius(event) {
-  event.preventDefault();
-  fahrenheitDegrees.classList.remove("active");
-  celsiusDegrees.classList.add("active");
-  let temperatureElement = document.querySelector("#current-temperature");
-  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+function moonPhaseIcon(currentMoonPhaseIcon) {
+  if (currentMoonPhaseIcon === 0) {
+    return "images/weather-icons-master/design/fill/animation-ready/moon-new.svg";
+  }
+
+  if (currentMoonPhaseIcon >= 0 && currentMoonPhaseIcon <= 0.25) {
+    return "images/weather-icons-master/design/fill/animation-ready/moon-waxing-crescent.svg";
+  }
+
+  if (currentMoonPhaseIcon === 0.25) {
+    return "images/weather-icons-master/design/fill/animation-ready/moon-first-quarter.svg";
+  }
+
+  if (currentMoonPhaseIcon >= 0.25 && currentMoonPhaseIcon <= 0.5) {
+    return "images/weather-icons-master/design/fill/animation-ready/moon-waxing-gibbous.svg";
+  }
+
+  if (currentMoonPhaseIcon === 0.5) {
+    return "images/weather-icons-master/design/fill/animation-ready/moon-full.svg";
+  }
+
+  if (currentMoonPhaseIcon >= 0.5 && currentMoonPhaseIcon <= 0.75) {
+    return "images/weather-icons-master/design/fill/animation-ready/moon-waning-gibbous.svg";
+  }
+
+  if (currentMoonPhaseIcon === 0.75) {
+    return "images/weather-icons-master/design/fill/animation-ready/moon-last-quarter.svg";
+  }
+
+  if (currentMoonPhaseIcon >= 0.75 && currentMoonPhaseIcon <= 1) {
+    return "images/weather-icons-master/design/fill/animation-ready/moon-waning-crescent.svg";
+  }
+
+  /*
+  0 – new moon -
+  0-0.25 – waxing crescent -
+  0.25 – first quarter -
+  0.25-0.5 – waxing gibbous -
+  0.5 – full moon -
+  0.5-0.75 – waning gibbous -
+  0.75 – last quarter -
+  0.75 -1 – waning crescent -
+  */
 }
-
-let fahrenheitDegrees = document.querySelector("#f-degrees");
-fahrenheitDegrees.addEventListener("click", showInFahrenheit);
-
-let celsiusDegrees = document.querySelector("#c-degrees");
-celsiusDegrees.addEventListener("click", showInCelsius);
 
 // Show current weather data
 
@@ -120,7 +136,7 @@ function showWeatherData(response) {
   currentHumidity.innerHTML = `${response.data.main.humidity}%`;
 
   let currentWind = document.querySelector("#current-wind");
-  currentWind.innerHTML = `${response.data.wind.speed} m/s`;
+  currentWind.innerHTML = `${Math.round(response.data.wind.speed * 3.6)} km/h`;
 
   // Timezone offset
 
@@ -205,59 +221,25 @@ function weatherIcon(iconChoice) {
   }
 }
 
-function getMoonPhase(year, month, day) {
-  var c = (e = jd = b = 0);
-
-  if (month < 3) {
-    year--;
-    month += 12;
-  }
-
-  ++month;
-
-  c = 365.25 * year;
-
-  e = 30.6 * month;
-
-  jd = c + e + day - 694039.09; //jd is total days elapsed
-
-  jd /= 29.5305882; //divide by the moon cycle
-
-  b = parseInt(jd); //int(jd) -> b, take integer part of jd
-
-  jd -= b; //subtract integer part to leave fractional part of original jd
-
-  b = Math.round(jd * 8); //scale fraction from 0-8 and round
-
-  if (b >= 8) {
-    b = 0; //0 and 8 are the same so turn 8 into 0
-  }
-
-  // 0 => New Moon
-  // 1 => Waxing Crescent Moon
-  // 2 => Quarter Moon
-  // 3 => Waxing Gibbous Moon
-  // 4 => Full Moon
-  // 5 => Waning Gibbous Moon
-  // 6 => Last Quarter Moon
-  // 7 => Waning Crescent Moon
-
-  return b;
-}
-
 function search(city) {
   let units = "metric";
   let apiKey = "ba00850463194774eab1016f22d45ed5";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   console.log(apiUrl);
   axios.get(apiUrl).then(showWeatherData);
+
+  // Moon phase
+
+  let moonPhaseApiKey = "ZHCYWG84YEZVL2UVX5JHK63D2";
+  let moonPhaseApiUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/2022-09-25?unitGroup=us&key=${moonPhaseApiKey}&include=days&elements=moonphase`;
+  console.log(moonPhaseApiUrl);
+  axios.get(moonPhaseApiUrl).then(showMoonPhase);
 }
 
 function currentCityDisplay(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value;
   search(city);
-  showInCelsius(event);
 }
 
 var today = new Date(); // Current date, global variable
@@ -266,14 +248,4 @@ var cityDate = new Date(); // City date, global variable
 let currentCity = document.querySelector("#current-city");
 currentCity.addEventListener("submit", currentCityDisplay);
 
-let celsiusTemperature = null;
-
 search("Marsella");
-
-/* Astronomy API
-
-Application ID: 272edff2-849b-4006-ac50-d8cff575e5a6
-
-Application secret: a71e7b878d760c64be354008d520e0c1b2989ec65add483830e8acaba03dd51a95f903095783e4cb60d9174305fa6c83442746a8d9aec4c7282a04cd8d24aa727c7c6ba091f2436e85c1adeac881df11754cc4c7f7bd9c8a42dcccc8a1b9798eb516139fdcafdd93b80e3925d574cc12
-
-*/

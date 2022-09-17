@@ -78,30 +78,14 @@ footer {
   color: #4f5aa8;
 }
 
-.degrees a {
-  color: gray;
+.degrees {
+  color: #4f5aa8;
   text-decoration: none;
-}
-
-.degrees span {
   font-size: 18px;
   font-weight: 500;
   position: relative;
   top: -30px;
 }
-
-.degrees a:hover {
-  color: #fff;
-}
-
-.degrees .active {
-  color: #4f5aa8;
-  cursor: default;
-}
-
-/* .temperature-container .active {
-  color: blue;
-} */
 
 .actual-weather-img {
   display: block;
@@ -126,10 +110,11 @@ footer {
   font-weight: 3 00;
 }
 
-.moon-phase-list {
-  font-family: "Secular One", sans-serif;
-  list-style-type: none;
-  font-size: 18px;
+.moon-phase-img {
+  margin-top: -20px;
+  margin-left: 44px;
+  width: 120px;
+  height: 120px;
 }
 
 /* Weekly predictions  */
