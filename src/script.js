@@ -173,6 +173,18 @@ function showWeatherData(response) {
   getForecast(response.data.coord);
 
   lastUpdate();
+
+  // Moon phase
+
+  let currentDate = cityDate.toLocaleString("af-za", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  let moonPhaseApiKey = "ZHCYWG84YEZVL2UVX5JHK63D2";
+  let moonPhaseApiUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${response.data.name}/${currentDate}?unitGroup=us&key=${moonPhaseApiKey}&include=days&elements=moonphase`;
+  axios.get(moonPhaseApiUrl).then(showMoonPhase);
 }
 
 function weatherIcon(iconChoice) {
@@ -230,10 +242,10 @@ function search(city) {
 
   // Moon phase
 
-  let moonPhaseApiKey = "ZHCYWG84YEZVL2UVX5JHK63D2";
+  /* let moonPhaseApiKey = "ZHCYWG84YEZVL2UVX5JHK63D2";
   let moonPhaseApiUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/2022-09-25?unitGroup=us&key=${moonPhaseApiKey}&include=days&elements=moonphase`;
   console.log(moonPhaseApiUrl);
-  axios.get(moonPhaseApiUrl).then(showMoonPhase);
+  axios.get(moonPhaseApiUrl).then(showMoonPhase); */
 }
 
 function currentCityDisplay(event) {
