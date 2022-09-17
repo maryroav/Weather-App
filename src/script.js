@@ -12,7 +12,7 @@ function lastUpdate() {
     minute: "2-digit",
   });
 
-  lastTimeUpdated.innerHTML = `Last update: ${convertTime}`;
+  lastTimeUpdated.innerHTML = `Last updated: ${convertTime}`;
 }
 
 // Forecast
