@@ -239,13 +239,6 @@ function search(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   console.log(apiUrl);
   axios.get(apiUrl).then(showWeatherData);
-
-  // Moon phase
-
-  /* let moonPhaseApiKey = "ZHCYWG84YEZVL2UVX5JHK63D2";
-  let moonPhaseApiUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/2022-09-25?unitGroup=us&key=${moonPhaseApiKey}&include=days&elements=moonphase`;
-  console.log(moonPhaseApiUrl);
-  axios.get(moonPhaseApiUrl).then(showMoonPhase); */
 }
 
 function currentCityDisplay(event) {
