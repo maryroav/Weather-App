@@ -36,7 +36,7 @@ footer {
   padding: 5px;
   border: 1px solid #fff;
   border-radius: 10px;
-  width: 105%;
+  width: 106%;
 }
 
 .enter-city:focus {
@@ -47,16 +47,10 @@ footer {
 
 .search-city-button {
   background: #6bd5e1;
-  padding: 5px;
+  padding: 5px 10px;
   border: 1px solid #6bd5e1;
   border-radius: 10px;
-}
-
-.fav-city-button {
-  background: #ffd98e;
-  padding: 5px;
-  border: 1px solid #ffd98e;
-  border-radius: 10px;
+  margin-left: 4px;
 }
 
 .actual-city {
